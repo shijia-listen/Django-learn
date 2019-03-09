@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分配班级</title>
+</head>
+<body>
+<form name="class_ids" action="/give_classes?uid={{ uid }}" method="post">
+<select multiple size="10" name="cla_id">
+    {% for class in class_list %}
+        {% if class.id in id_list %}
+            <option value="{{ class.id }}" selected="selected">{{ class.title }}</option>
+        {% else %}
+            <option value="{{ class.id }}">{{ class.title }}</option>
+        {% endif %}
+    {% endfor %}
+</select>
+<input type="submit" value="提交">
+{% csrf_token %}
+</form>
+</body>
+</html>

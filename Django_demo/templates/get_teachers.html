@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分配老师</title>
+</head>
+<body>
+<form action="/get_teachers?uid={{ uid }}" method="post">
+<select  multiple  size="10"  name="tea_id">
+    {% for teacher in teachers_list %}
+        {% if teacher.id in id_list %}
+            <option value="{{ teacher.id }}" selected="selected">{{ teacher.name }}</option>
+        {% else %}
+            <option value="{{ teacher.id }}">{{ teacher.name }}</option>
+        {% endif %}
+    {% endfor %}
+</select>
+<input type="submit" value="提交">
+{% csrf_token %}
+</form>
+</body>
+</html>

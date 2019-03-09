@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生</title>
+</head>
+<body>
+<div></div>
+<div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>班级</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <a href="/add_students">增加 </a>| <a href="" onclick="add_stu(this);">ajax增加</a>
+
+        {% for student in students_list %}
+        <tr nid="{{ student.id }}">
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.gender }}</td>
+            <td>{{ student.cs.title}}</td>
+            <td> <a href="" onclick="remove_stu(this);">ajax删除</a> |<a href="/update_students?uid={{ student.id }}">修改</a> | <a href="/del_students?uid={{ student.id }}">删除</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script src="/static/jquery-3.1.1.js"></script>
+<script>
+    function remove_stu(ths){
+        var nid=$(ths).parent().parent().attr('nid');
+        $.ajax({
+        url:'/remove_ajax.html',
+        type:'GET',
+        data:{ nid:nid },
+         success:function (arg) {
+             if(arg=='成功'){
+                 $(ths).parent().parent().remove();
+             }
+             else{
+                 alert(arg)
+             }
+         }
+
+
+    })}
+
+</script>
+</body>
+</html>

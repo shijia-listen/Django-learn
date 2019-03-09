@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>班级</title>
+</head>
+<body>
+<div></div>
+<div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>班级</th>
+                <th>老师</th>
+                <th>操作</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        <a href="/add_classes">增加</a>
+        {% for classes in classes_list %}
+        <tr>
+            <td>{{ classes.id }}</td>
+            <td>{{ classes.title }}</td>
+            <td>
+                {% for obj in classes.t.all %}
+                  {{ obj.name }}
+
+                {% endfor %}
+            </td>
+            <td> <a href="/update_classes?uid={{ classes.id }}">修改</a> | <a href="/del_classes?uid={{ classes.id }}">删除</a>|<a href="/get_teachers?uid={{ classes.id }}">分配老师</a></td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改班级</title>
+</head>
+<body>
+<form action="/update_classes?uid={{ obj.id }}" method="post">
+
+{#        <p><input type="text" name="id" value="{{ obj.id }}" style="display: none"></p>#}
+        <p><input type="text" name="title" value="{{ obj.title }}"></p>
+
+    <input type="submit" value="修改">
+</form>
+</body>
+</html>
