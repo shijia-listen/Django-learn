@@ -1,0 +1,102 @@
+示例：
+    - 所有学生的姓名以及其所在班级名称,QuerySet
+        stu_list = Student.objects.all()
+        select * from tb;
+        [obj,obj,obj,obj]
+        
+        stu_list = Student.objects.all().values("id",'username')
+        select id,username from tb;
+        [{"id":1,'username':'xx'},{id:'',username:''}]   
+        
+        stu_list = Student.objects.all().values_list("id",'username')
+        [(1,'root'), (2,'alex')]
+        
+        
+        stu_list = Student.objects.all().values('username',"cs__name")
+        for row in stu_list:
+            print(row['username'],row['cs__name'])
+        
+        stu_list = Student.objects.all().values('username',"cs__titile",“cs__fk__name”)
+        
+    - 找到3班的所有学生
+        Student.objects.filter(cs__name='3班')
+        
+        obj = Classes.objects.filter(name='3班').first()
+
+    
+1. 类代表数据库表
+2. 类的对象代指数据库的一行记录
+3. FK字段代指关联表中的一行数据（类的对象）
+4. 
+    - 正向：fk字段  (*****)
+    - 反向：小写类名_set(默认)   ==> related_name='ssss'
+
+5. 谁是主表？就全部列出其数据（和左外连接和右外连接相似）
+    models.Student.objects.all().values('username', 'cs__titile')
+    models.Classes.objects.all().values('titile', 'ssss__username')
+    
+4. M2M字段，自动生成第三张表；依赖关联表对第三张表间接操作
+获取obj.m.all()    关联的那张表所有的teacher对象
+增加：
+正向:
+obj=Classes.objects.filter(id=1).first()
+         obj.m.add(3)  给班级为1 增加一个老师id为1的老师（classes中有m字段）
+反向：
+> related_name='ssss'
+obj=Teachers.objects.filter(id=2).first()  (teachers中没有m字段，小写类名+_set)
+       obj.classes_set.add(2)  给id为2的老师增加一个班级为2的班
+       obj.ssss.add(2) 等同于上述
+
+设置：obj.ssss.set([2,3])  2--->2   2--->3  把其他的2对应的都删除 有这个对象关系保留，没有的增加，多余的删掉  和重置一下
+
+manytomany 感知不到第三张表
+Classes.objects.all().values('id','title','m','m__name')
+得到的是m是对应老师的id   一个老师对应多个班级就写几遍班级，没有老师对应的班级就是none，左外连接相似
+Teachers.objects.all().values('name','ssss__title')==classes_set__title
+得到的是有几个班级就会写几遍老师  老师没有对应的班级就是none  右外连接
+
+5、外键补充：
+filter拿到的是一个querryset类型  是一个个对象
+filter后加values拿到的是也是querryset集合类型  是一个个字典
+filter后加values_list 是一个元组
+
+
+
+        
+
+
+
+对话框添加，删除，修改：
+    添加：
+        Ajax偷偷向后台发请求：
+            1. 下载引入jQuery
+            2. 
+                $.ajax({
+                    url: '/add_classes.html',
+                    type: 'POST',
+                    data: {'username':'root','password': '123'},
+                    success:function(arg){
+                        // 回调函数，arg是服务端返回的数据
+                    }
+                })
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
