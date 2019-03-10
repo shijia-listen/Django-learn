@@ -1,0 +1,19 @@
+分页组件
+    - Django内置分页
+        - Paginator、 Page   
+        - 页面：include
+    
+    - 扩展Django的内置分页
+        - CustomPaginator(Paginator)
+    传入：
+        - 所有数据 
+        - 当前页
+        - 每页显示30条
+        - 最多页面7个
+    
+    - 自定义分页
+    传入：
+        - 所有数据的个数
+        - 当前页
+        - 每页显示30条
+        - 最多页面7个
