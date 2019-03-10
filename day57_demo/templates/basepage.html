@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义分页</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+</head>
+<body>
+<ul>
+    {% for content in data_list %}
+        <li>{{ content.name }}  --  {{ content.age }}</li>
+{% endfor %}
+</ul>
+{% for i in page_obj.pager_num_range %}
+    <a style="display: none"; href="/basepage?p={{ i }}">{{ i }}</a>
+{% endfor %}
+{#<hr/>#}
+
+<ul class="pagination pagination-sm">
+    {{ page_obj.page_str|safe }}
+</ul>
+</body>
+</html>

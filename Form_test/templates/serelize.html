@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>用户列表</h1>
+<table id="tb">
+
+</table>
+
+<script src="/static/jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+        initData();
+    });
+    function initData() {
+       $.ajax(
+            {
+                url:'/ajax_serelize/',
+                type:'GET',
+                dataType:'JSON',
+                success:function (arg) {
+                    if(arg.status){
+                        {#var v=JSON.parse(arg.data);#}
+                        {#console.log(v)#}
+                        console.log(arg.data)
+                    }
+
+                    //$('#tb').append(arg);
+
+                }
+            } )
+    }
+</script>
+</body>
+</html>
